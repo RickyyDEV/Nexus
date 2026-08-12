@@ -13,6 +13,10 @@ import type { User } from "better-auth";
 import { authClient } from "../../../../auth";
 import { useNavigate } from "@tanstack/react-router";
 export default function DashboardNavBar({ user }: { user: User }) {
+  // const { data } = useQuery({
+  //   queryKey: ["user"],
+  //   queryFn: FetchUser,
+  // });
   const navigate = useNavigate();
   return (
     <header>

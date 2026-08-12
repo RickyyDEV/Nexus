@@ -1,29 +1,37 @@
 import { Helmet } from "react-helmet-async";
-import { authClient } from "../../auth";
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
+import Loading from "#components/own/loading";
+import { FetchUser } from "../../actions/user";
+import { queryClient } from "../../main";
+import { useQuery } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/dashboard")({
   beforeLoad: async ({}) => {
-    let session = await authClient.getSession();
-    if (!session.data) redirect({ href: "/auth/login", throw: true });
-    return session;
+    void queryClient.prefetchQuery({
+      queryKey: ["user"],
+      queryFn: FetchUser,
+      staleTime: 1000 * 60 * 5, //
+    });
   },
-  pendingComponent: () => (
-    <>
-      <p>CARREGANDO</p>
-      <p>SDADSAD</p>
-    </>
-  ),
+  pendingComponent: () => <Loading />,
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  return (
-    <>
-      <Helmet>
-        <title>Nexus - Dashboard</title>
-      </Helmet>
-      <Outlet />
-    </>
-  );
+  const navigate = useNavigate();
+  const { data, isLoading } = useQuery({
+    queryKey: ["user"],
+    queryFn: FetchUser,
+    staleTime: 1000 * 60 * 5,
+  });
+  if (!data?.data && !isLoading) navigate({ href: "/auth/login" });
+  else
+    return (
+      <>
+        <Helmet>
+          <title>Nexus - Dashboard</title>
+        </Helmet>
+        <Outlet />
+      </>
+    );
 }

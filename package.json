@@ -13,15 +13,15 @@
   },
   "scripts": {
     "dev:dashboard": "bun --env-file=.env --bun --cwd apps/dashboard --bun dev",
-    "dev:api": "bun --env-file=.env --bun --cwd apps/api --bun start:dev",
+    "dev:api": "bun --env-file=.env --bun --cwd apps/backend --bun dev",
     "dev:bot": "cargo run --manifest-path apps/bot/Cargo.toml",
     "build:dashboard": "bun --env-file=.env --bun --cwd apps/dashboard --bun build",
-    "build:api": "bun --env-file=.env --bun --cwd apps/api --bun build",
     "start:dashboard": "bun --env-file=.env --bun --cwd apps/dashboard --bun preview",
-    "start:api": "bun --env-file=.env --bun --cwd apps/api --bun start:prod",
+    "start:api": "bun --env-file=.env --bun --cwd apps/backend --bun dev",
     "dev": "bun --env-file=.env --bun run --parallel dev:dashboard dev:api",
-    "build": "bun --env-file=.env --bun run --parallel build:dashboard build:api",
-    "start": "bun --env-file=.env --bun run --parallel start:dashboard start:api"
+    "build": "bun --env-file=.env --bun run --parallel build:dashboard",
+    "start": "bun --env-file=.env --bun run --parallel start:dashboard start:api",
+    "migrate": "cd apps/api && bunx --bun --env-file=../../.env prisma migrate dev"
   },
   "peerDependencies": {
     "typescript": "^7.0.2"
