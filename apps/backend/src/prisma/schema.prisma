@@ -13,19 +13,19 @@ datasource db {
 }
 
 model User {
-  id            String    @unique
+  id            String         @unique
   name          String
-  email         String    @unique
-  emailVerified Boolean   @default(false)
+  email         String         @unique
+  emailVerified Boolean        @default(false)
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
   sessions      Session[]
   accounts      Account[]
+  serverMembers ServerMember[] @relation("ServerMembers")
+  servers       Server[]       @relation("ServerOwner")
 
   @@map("user")
-  serverMembers ServerMember[] @relation("ServerMembers")
-  servers Server[] @relation("ServerOwner")
 }
 
 model Session {
@@ -76,46 +76,45 @@ model Verification {
   @@map("verification")
 }
 
-
 model Server {
-  id                 String    @id @default(uuid())
-  discordGuildId     BigInt    @unique            // snowflake
-  name               String
-  iconHash           String?
-  ownerUserId        String                       // quem instalou = Nexus owner
-  ownerUser          User      @relation("ServerOwner", fields: [ownerUserId], references: [id], onDelete: Cascade)
-  installedAt       DateTime   @default(now())
-  botPresent         Boolean   @default(true)     // false quando bot sai (config fica congelada)
-  memberCount        Int       @default(0)        // cacheado pelo bot
+  id                   String    @id @default(uuid())
+  discordGuildId       String    @unique // snowflake
+  name                 String
+  iconHash             String?
+  ownerUserId          String // quem instalou = Nexus owner
+  ownerUser            User      @relation("ServerOwner", fields: [ownerUserId], references: [id], onDelete: Cascade)
+  installedAt          DateTime  @default(now())
+  botPresent           Boolean   @default(true) // false quando bot sai (config fica congelada)
+  memberCount          Int       @default(0) // cacheado pelo bot
   memberCountUpdatedAt DateTime?
-  premium            Boolean   @default(false)    // GANCHO futuro — não usar ainda
-  premiumUntil       DateTime?                    // GANCHO futuro
-  premiumPlan        String?                      // GANCHO futuro
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
+  premium              Boolean   @default(false) // GANCHO futuro — não usar ainda
+  premiumUntil         DateTime? // GANCHO futuro
+  premiumPlan          String? // GANCHO futuro
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
 
-  members            ServerMember[]
-  config             ServerConfig?
-  moduleConfigs      ModuleConfig[]
-  automations        Automation[]
-  auditLogs          AuditLog[]
-  eventLogs          BotEventLog[]
-  channelToggles     ChannelModuleToggle[]
+  members        ServerMember[]
+  config         ServerConfig?
+  moduleConfigs  ModuleConfig[]
+  automations    Automation[]
+  auditLogs      AuditLog[]
+  eventLogs      BotEventLog[]
+  channelToggles ChannelModuleToggle[]
 
   @@index([ownerUserId])
   @@map("server")
 }
 
 model ServerMember {
-  id          String   @id @default(uuid())
-  serverId    String
-  server      Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
-  userId      String
-  user        User     @relation("ServerMembers", fields: [userId], references: [id], onDelete: Cascade)
-  role        String   @default("admin")          // "owner" | "admin"
-  invitedBy   String?
-  invitedAt   DateTime @default(now())
-  createdAt   DateTime @default(now())
+  id        String   @id @default(uuid())
+  serverId  String
+  server    Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation("ServerMembers", fields: [userId], references: [id], onDelete: Cascade)
+  role      String   @default("admin") // "owner" | "admin"
+  invitedBy String?
+  invitedAt DateTime @default(now())
+  createdAt DateTime @default(now())
 
   @@unique([serverId, userId])
   @@index([serverId])
@@ -124,27 +123,27 @@ model ServerMember {
 }
 
 model ServerConfig {
-  serverId      String   @id
-  server        Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
-  prefix        String   @default("!")
-  language      String   @default("pt-BR")
-  timezone      String   @default("America/Sao_Paulo")
-  updatedBy     String?
-  updatedAt     DateTime @updatedAt
+  serverId  String   @id
+  server    Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  prefix    String   @default("!")
+  language  String   @default("pt-BR")
+  timezone  String   @default("America/Sao_Paulo")
+  updatedBy String?
+  updatedAt DateTime @updatedAt
 
   @@map("server_config")
 }
 
 model ModuleConfig {
-  id          String   @id @default(uuid())
-  serverId    String
-  server      Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
-  moduleType  String                              // "welcome" | "anti_link" | "moderation" | "auto_roles" | "tickets"
-  enabled     Boolean  @default(false)
-  config      Json     @default("{}")             // JSONB — formato versionado por moduleType
-  schemaVersion Int    @default(1)                // p/ migrations de schema interno futuro
-  updatedBy   String?
-  updatedAt   DateTime @updatedAt
+  id            String   @id @default(uuid())
+  serverId      String
+  server        Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  moduleType    String // "welcome" | "anti_link" | "moderation" | "auto_roles" | "tickets"
+  enabled       Boolean  @default(false)
+  config        Json     @default("{}") // JSONB — formato versionado por moduleType
+  schemaVersion Int      @default(1) // p/ migrations de schema interno futuro
+  updatedBy     String?
+  updatedAt     DateTime @updatedAt
 
   @@unique([serverId, moduleType])
   @@index([serverId])
@@ -152,13 +151,13 @@ model ModuleConfig {
 }
 
 model ChannelModuleToggle {
-  id          String   @id @default(uuid())
-  serverId    String
-  server      Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
-  channelId   String                              // snowflake como text (anti-link per-canal)
-  moduleType  String
-  enabled     Boolean  @default(true)
-  updatedAt   DateTime @updatedAt
+  id         String   @id @default(uuid())
+  serverId   String
+  server     Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  channelId  String // snowflake como text (anti-link per-canal)
+  moduleType String
+  enabled    Boolean  @default(true)
+  updatedAt  DateTime @updatedAt
 
   @@unique([serverId, channelId, moduleType])
   @@index([serverId])
@@ -166,19 +165,19 @@ model ChannelModuleToggle {
 }
 
 model Automation {
-  id              String   @id @default(uuid())
-  serverId        String
-  server          Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
-  name            String
-  enabled         Boolean  @default(true)
-  triggerType     String                              // "member_join" | "message_sent" | "link_detected" | "mention_mass" | "reaction_added"
-  triggerConfig   Json     @default("{}")             // condição refinada
-  actions         Json                                 // array de { type, config }
-  executionCount  Int      @default(0)
-  lastExecutedAt  DateTime?
-  createdBy       String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id             String    @id @default(uuid())
+  serverId       String
+  server         Server    @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  name           String
+  enabled        Boolean   @default(true)
+  triggerType    String // "member_join" | "message_sent" | "link_detected" | "mention_mass" | "reaction_added"
+  triggerConfig  Json      @default("{}") // condição refinada
+  actions        Json // array de { type, config }
+  executionCount Int       @default(0)
+  lastExecutedAt DateTime?
+  createdBy      String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
   @@index([serverId])
   @@index([serverId, enabled])
@@ -186,28 +185,28 @@ model Automation {
 }
 
 model AuditLog {
-  id          BigInt   @id @default(autoincrement())
-  serverId    String
-  server      Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
-  userId      String?
-  action       String                               // "module.enable", "automation.create", "config.update"
-  entityType  String?
-  entityId    String?
-  before      Json?                                  // snapshot antes
-  after       Json?                                  // snapshot depois
-  createdAt   DateTime @default(now())
+  id         BigInt   @id @default(autoincrement())
+  serverId   String
+  server     Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  userId     String?
+  action     String // "module.enable", "automation.create", "config.update"
+  entityType String?
+  entityId   String?
+  before     Json? // snapshot antes
+  after      Json? // snapshot depois
+  createdAt  DateTime @default(now())
 
   @@index([serverId, createdAt])
   @@map("audit_log")
 }
 
 model BotEventLog {
-  id          BigInt   @id @default(autoincrement())
-  serverId    String
-  server      Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
-  eventType   String                               // "link_blocked" | "member_welcomed" | "automation_fired"
-  metadata    Json?
-  createdAt    DateTime @default(now())
+  id        BigInt   @id @default(autoincrement())
+  serverId  String
+  server    Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  eventType String // "link_blocked" | "member_welcomed" | "automation_fired"
+  metadata  Json?
+  createdAt DateTime @default(now())
 
   @@index([serverId, createdAt])
   @@index([eventType, createdAt])

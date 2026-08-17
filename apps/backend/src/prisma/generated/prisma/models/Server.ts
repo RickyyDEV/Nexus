@@ -27,18 +27,16 @@ export type AggregateServer = {
 }
 
 export type ServerAvgAggregateOutputType = {
-  discordGuildId: number | null
   memberCount: number | null
 }
 
 export type ServerSumAggregateOutputType = {
-  discordGuildId: bigint | null
   memberCount: number | null
 }
 
 export type ServerMinAggregateOutputType = {
   id: string | null
-  discordGuildId: bigint | null
+  discordGuildId: string | null
   name: string | null
   iconHash: string | null
   ownerUserId: string | null
@@ -55,7 +53,7 @@ export type ServerMinAggregateOutputType = {
 
 export type ServerMaxAggregateOutputType = {
   id: string | null
-  discordGuildId: bigint | null
+  discordGuildId: string | null
   name: string | null
   iconHash: string | null
   ownerUserId: string | null
@@ -90,12 +88,10 @@ export type ServerCountAggregateOutputType = {
 
 
 export type ServerAvgAggregateInputType = {
-  discordGuildId?: true
   memberCount?: true
 }
 
 export type ServerSumAggregateInputType = {
-  discordGuildId?: true
   memberCount?: true
 }
 
@@ -239,7 +235,7 @@ export type ServerGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 
 export type ServerGroupByOutputType = {
   id: string
-  discordGuildId: bigint
+  discordGuildId: string
   name: string
   iconHash: string | null
   ownerUserId: string
@@ -279,7 +275,7 @@ export type ServerWhereInput = {
   OR?: Prisma.ServerWhereInput[]
   NOT?: Prisma.ServerWhereInput | Prisma.ServerWhereInput[]
   id?: Prisma.StringFilter<"Server"> | string
-  discordGuildId?: Prisma.BigIntFilter<"Server"> | bigint | number
+  discordGuildId?: Prisma.StringFilter<"Server"> | string
   name?: Prisma.StringFilter<"Server"> | string
   iconHash?: Prisma.StringNullableFilter<"Server"> | string | null
   ownerUserId?: Prisma.StringFilter<"Server"> | string
@@ -329,7 +325,7 @@ export type ServerOrderByWithRelationInput = {
 
 export type ServerWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  discordGuildId?: bigint | number
+  discordGuildId?: string
   AND?: Prisma.ServerWhereInput | Prisma.ServerWhereInput[]
   OR?: Prisma.ServerWhereInput[]
   NOT?: Prisma.ServerWhereInput | Prisma.ServerWhereInput[]
@@ -382,7 +378,7 @@ export type ServerScalarWhereWithAggregatesInput = {
   OR?: Prisma.ServerScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ServerScalarWhereWithAggregatesInput | Prisma.ServerScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Server"> | string
-  discordGuildId?: Prisma.BigIntWithAggregatesFilter<"Server"> | bigint | number
+  discordGuildId?: Prisma.StringWithAggregatesFilter<"Server"> | string
   name?: Prisma.StringWithAggregatesFilter<"Server"> | string
   iconHash?: Prisma.StringNullableWithAggregatesFilter<"Server"> | string | null
   ownerUserId?: Prisma.StringWithAggregatesFilter<"Server"> | string
@@ -399,7 +395,7 @@ export type ServerScalarWhereWithAggregatesInput = {
 
 export type ServerCreateInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   installedAt?: Date | string
@@ -423,7 +419,7 @@ export type ServerCreateInput = {
 
 export type ServerUncheckedCreateInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   ownerUserId: string
@@ -447,7 +443,7 @@ export type ServerUncheckedCreateInput = {
 
 export type ServerUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   installedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -471,7 +467,7 @@ export type ServerUpdateInput = {
 
 export type ServerUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerUserId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -495,7 +491,7 @@ export type ServerUncheckedUpdateInput = {
 
 export type ServerCreateManyInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   ownerUserId: string
@@ -512,7 +508,7 @@ export type ServerCreateManyInput = {
 
 export type ServerUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   installedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -528,7 +524,7 @@ export type ServerUpdateManyMutationInput = {
 
 export type ServerUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerUserId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -571,7 +567,6 @@ export type ServerCountOrderByAggregateInput = {
 }
 
 export type ServerAvgOrderByAggregateInput = {
-  discordGuildId?: Prisma.SortOrder
   memberCount?: Prisma.SortOrder
 }
 
@@ -610,7 +605,6 @@ export type ServerMinOrderByAggregateInput = {
 }
 
 export type ServerSumOrderByAggregateInput = {
-  discordGuildId?: Prisma.SortOrder
   memberCount?: Prisma.SortOrder
 }
 
@@ -659,14 +653,6 @@ export type ServerUncheckedUpdateManyWithoutOwnerUserNestedInput = {
   update?: Prisma.ServerUpdateWithWhereUniqueWithoutOwnerUserInput | Prisma.ServerUpdateWithWhereUniqueWithoutOwnerUserInput[]
   updateMany?: Prisma.ServerUpdateManyWithWhereWithoutOwnerUserInput | Prisma.ServerUpdateManyWithWhereWithoutOwnerUserInput[]
   deleteMany?: Prisma.ServerScalarWhereInput | Prisma.ServerScalarWhereInput[]
-}
-
-export type BigIntFieldUpdateOperationsInput = {
-  set?: bigint | number
-  increment?: bigint | number
-  decrement?: bigint | number
-  multiply?: bigint | number
-  divide?: bigint | number
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -777,7 +763,7 @@ export type ServerUpdateOneRequiredWithoutEventLogsNestedInput = {
 
 export type ServerCreateWithoutOwnerUserInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   installedAt?: Date | string
@@ -800,7 +786,7 @@ export type ServerCreateWithoutOwnerUserInput = {
 
 export type ServerUncheckedCreateWithoutOwnerUserInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   installedAt?: Date | string
@@ -852,7 +838,7 @@ export type ServerScalarWhereInput = {
   OR?: Prisma.ServerScalarWhereInput[]
   NOT?: Prisma.ServerScalarWhereInput | Prisma.ServerScalarWhereInput[]
   id?: Prisma.StringFilter<"Server"> | string
-  discordGuildId?: Prisma.BigIntFilter<"Server"> | bigint | number
+  discordGuildId?: Prisma.StringFilter<"Server"> | string
   name?: Prisma.StringFilter<"Server"> | string
   iconHash?: Prisma.StringNullableFilter<"Server"> | string | null
   ownerUserId?: Prisma.StringFilter<"Server"> | string
@@ -869,7 +855,7 @@ export type ServerScalarWhereInput = {
 
 export type ServerCreateWithoutMembersInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   installedAt?: Date | string
@@ -892,7 +878,7 @@ export type ServerCreateWithoutMembersInput = {
 
 export type ServerUncheckedCreateWithoutMembersInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   ownerUserId: string
@@ -931,7 +917,7 @@ export type ServerUpdateToOneWithWhereWithoutMembersInput = {
 
 export type ServerUpdateWithoutMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   installedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -954,7 +940,7 @@ export type ServerUpdateWithoutMembersInput = {
 
 export type ServerUncheckedUpdateWithoutMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerUserId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -977,7 +963,7 @@ export type ServerUncheckedUpdateWithoutMembersInput = {
 
 export type ServerCreateWithoutConfigInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   installedAt?: Date | string
@@ -1000,7 +986,7 @@ export type ServerCreateWithoutConfigInput = {
 
 export type ServerUncheckedCreateWithoutConfigInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   ownerUserId: string
@@ -1039,7 +1025,7 @@ export type ServerUpdateToOneWithWhereWithoutConfigInput = {
 
 export type ServerUpdateWithoutConfigInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   installedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1062,7 +1048,7 @@ export type ServerUpdateWithoutConfigInput = {
 
 export type ServerUncheckedUpdateWithoutConfigInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerUserId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1085,7 +1071,7 @@ export type ServerUncheckedUpdateWithoutConfigInput = {
 
 export type ServerCreateWithoutModuleConfigsInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   installedAt?: Date | string
@@ -1108,7 +1094,7 @@ export type ServerCreateWithoutModuleConfigsInput = {
 
 export type ServerUncheckedCreateWithoutModuleConfigsInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   ownerUserId: string
@@ -1147,7 +1133,7 @@ export type ServerUpdateToOneWithWhereWithoutModuleConfigsInput = {
 
 export type ServerUpdateWithoutModuleConfigsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   installedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1170,7 +1156,7 @@ export type ServerUpdateWithoutModuleConfigsInput = {
 
 export type ServerUncheckedUpdateWithoutModuleConfigsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerUserId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1193,7 +1179,7 @@ export type ServerUncheckedUpdateWithoutModuleConfigsInput = {
 
 export type ServerCreateWithoutChannelTogglesInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   installedAt?: Date | string
@@ -1216,7 +1202,7 @@ export type ServerCreateWithoutChannelTogglesInput = {
 
 export type ServerUncheckedCreateWithoutChannelTogglesInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   ownerUserId: string
@@ -1255,7 +1241,7 @@ export type ServerUpdateToOneWithWhereWithoutChannelTogglesInput = {
 
 export type ServerUpdateWithoutChannelTogglesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   installedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1278,7 +1264,7 @@ export type ServerUpdateWithoutChannelTogglesInput = {
 
 export type ServerUncheckedUpdateWithoutChannelTogglesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerUserId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1301,7 +1287,7 @@ export type ServerUncheckedUpdateWithoutChannelTogglesInput = {
 
 export type ServerCreateWithoutAutomationsInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   installedAt?: Date | string
@@ -1324,7 +1310,7 @@ export type ServerCreateWithoutAutomationsInput = {
 
 export type ServerUncheckedCreateWithoutAutomationsInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   ownerUserId: string
@@ -1363,7 +1349,7 @@ export type ServerUpdateToOneWithWhereWithoutAutomationsInput = {
 
 export type ServerUpdateWithoutAutomationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   installedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1386,7 +1372,7 @@ export type ServerUpdateWithoutAutomationsInput = {
 
 export type ServerUncheckedUpdateWithoutAutomationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerUserId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1409,7 +1395,7 @@ export type ServerUncheckedUpdateWithoutAutomationsInput = {
 
 export type ServerCreateWithoutAuditLogsInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   installedAt?: Date | string
@@ -1432,7 +1418,7 @@ export type ServerCreateWithoutAuditLogsInput = {
 
 export type ServerUncheckedCreateWithoutAuditLogsInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   ownerUserId: string
@@ -1471,7 +1457,7 @@ export type ServerUpdateToOneWithWhereWithoutAuditLogsInput = {
 
 export type ServerUpdateWithoutAuditLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   installedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1494,7 +1480,7 @@ export type ServerUpdateWithoutAuditLogsInput = {
 
 export type ServerUncheckedUpdateWithoutAuditLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerUserId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1517,7 +1503,7 @@ export type ServerUncheckedUpdateWithoutAuditLogsInput = {
 
 export type ServerCreateWithoutEventLogsInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   installedAt?: Date | string
@@ -1540,7 +1526,7 @@ export type ServerCreateWithoutEventLogsInput = {
 
 export type ServerUncheckedCreateWithoutEventLogsInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   ownerUserId: string
@@ -1579,7 +1565,7 @@ export type ServerUpdateToOneWithWhereWithoutEventLogsInput = {
 
 export type ServerUpdateWithoutEventLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   installedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1602,7 +1588,7 @@ export type ServerUpdateWithoutEventLogsInput = {
 
 export type ServerUncheckedUpdateWithoutEventLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ownerUserId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1625,7 +1611,7 @@ export type ServerUncheckedUpdateWithoutEventLogsInput = {
 
 export type ServerCreateManyOwnerUserInput = {
   id?: string
-  discordGuildId: bigint | number
+  discordGuildId: string
   name: string
   iconHash?: string | null
   installedAt?: Date | string
@@ -1641,7 +1627,7 @@ export type ServerCreateManyOwnerUserInput = {
 
 export type ServerUpdateWithoutOwnerUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   installedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1664,7 +1650,7 @@ export type ServerUpdateWithoutOwnerUserInput = {
 
 export type ServerUncheckedUpdateWithoutOwnerUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   installedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1687,7 +1673,7 @@ export type ServerUncheckedUpdateWithoutOwnerUserInput = {
 
 export type ServerUncheckedUpdateManyWithoutOwnerUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  discordGuildId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  discordGuildId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   iconHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   installedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1889,7 +1875,7 @@ export type $ServerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    discordGuildId: bigint
+    discordGuildId: string
     name: string
     iconHash: string | null
     ownerUserId: string
@@ -2334,7 +2320,7 @@ export interface Prisma__ServerClient<T, Null = never, ExtArgs extends runtime.T
  */
 export interface ServerFieldRefs {
   readonly id: Prisma.FieldRef<"Server", 'String'>
-  readonly discordGuildId: Prisma.FieldRef<"Server", 'BigInt'>
+  readonly discordGuildId: Prisma.FieldRef<"Server", 'String'>
   readonly name: Prisma.FieldRef<"Server", 'String'>
   readonly iconHash: Prisma.FieldRef<"Server", 'String'>
   readonly ownerUserId: Prisma.FieldRef<"Server", 'String'>

@@ -21,7 +21,7 @@
     "dev": "bun --env-file=.env --bun run --parallel dev:dashboard dev:api",
     "build": "bun --env-file=.env --bun run --parallel build:dashboard",
     "start": "bun --env-file=.env --bun run --parallel start:dashboard start:api",
-    "migrate": "cd apps/api && bunx --bun --env-file=../../.env prisma migrate dev"
+    "migrate": "cd apps/backend && bunx --bun --env-file=../../.env prisma migrate dev"
   },
   "peerDependencies": {
     "typescript": "^7.0.2"

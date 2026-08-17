@@ -479,6 +479,14 @@ export type AuditLogUncheckedUpdateManyWithoutServerNestedInput = {
   deleteMany?: Prisma.AuditLogScalarWhereInput | Prisma.AuditLogScalarWhereInput[]
 }
 
+export type BigIntFieldUpdateOperationsInput = {
+  set?: bigint | number
+  increment?: bigint | number
+  decrement?: bigint | number
+  multiply?: bigint | number
+  divide?: bigint | number
+}
+
 export type AuditLogCreateWithoutServerInput = {
   id?: bigint | number
   userId?: string | null

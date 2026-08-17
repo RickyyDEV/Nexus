@@ -1,4 +1,4 @@
-import type Elysia from "elysia";
+import { ServerRoute } from "./server";
 import { UserRouter } from "./user";
 
-export const routes: Elysia[] = [UserRouter];
+export const routes = [UserRouter, ServerRoute];
